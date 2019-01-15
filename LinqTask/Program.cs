@@ -142,12 +142,9 @@ namespace LinqToObj
                             month = int.Parse(s[2])
                         };
                     })
-                    .GroupBy(e => e.duration)
-                    .OrderBy(e => e.Max(c => c.duration))
-                    //.OrderBy(e => e.duration)
-                    //.OrderBy(e => e.Max(c => c.duration))
-                    //.ThenBy(c => c.year)
-                    //.ThenBy(c => c.month)
+                    .OrderBy(e => e.duration)
+                    .ThenBy(e => e.year)
+                    .ThenBy(e => e.month)
                     .Last();
 
                 foreach (var a in File.ReadLines("file.txt", Encoding.Default))
@@ -155,8 +152,7 @@ namespace LinqToObj
 
                 Console.WriteLine();
 
-                foreach (var a in maxDuration)
-                    Console.WriteLine($"Max Duration: {a}");
+                Console.WriteLine($"Max Duration: {maxDuration}");
             }
             catch (FileNotFoundException e)
             {
